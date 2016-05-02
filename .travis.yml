@@ -1,0 +1,54 @@
+language: node_js
+node_js:
+- '5'
+cache:
+  directories:
+    - node_modules
+    - bower_components
+
+env:
+- CXX=g++-4.8
+
+before_script:
+- npm install -g bower
+- npm install -g gulp
+- npm install -g crx
+- npm install
+- bower install
+
+before_deploy:
+- export RELEASE_PKG_FILE="delivery/${TRAVIS_BRANCH}.crx"
+- "./node_modules/gulp/bin/gulp.js build_extension"
+- crx pack build -o ${RELEASE_PKG_FILE}
+- tar -zcvf ${RELEASE_PKG_FILE}.tar.gz dist
+- echo "deploying ${RELEASE_PKG_FILE} to GitHub releases"
+
+branches:
+  except:
+  - prod
+  - dev
+  - master
+  - test
+
+deploy:
+  provider: releases
+  skip_cleanup: true
+  api_key:
+    secure: lJH6bkrD7O4EOUY8CG5NMgvGumDpXP9V10mi0Xc4Om+ePtYrDGidbV09nLc3LgShY8IQA6QaBmyKtwMWCM4PR6wAY65hPeG3X9AHmvYpu/4oWsD4D5tW3eHW+845vK3ukTaRqJ/bgtpECcrdCsZIR1WmIXgbCkaEiYLuLbs8SvMIZNiwVlTsvBTIcDZ3sXC4YfYLcZFRPsY9/QsKw4z7uxQajHoyO/aNZt1f6PV7pfjvuDQtWlipqEUCS2Ct9feNCJ4DF+F5Mov2bjhWSV6eqknvQB3cjRLNfmiPjrYc52fC8+1iuBA3nWIoixbI/O5gL81Z8oPbJ28zo0LWcrDqimbNLIV51/oHdLRzfpBQ9exgeGAtzgtMWgFiawuRwd6AgBSBVvbfu+Iox8sG3Js81ArdvA+3uGGFO/oV1ku1+dePnH1Y/qN0U3SNCJwslIg0PoXr4wLhXGY8zt1fxvB680KFtBIgEYeII/RmL1jJ8YkI6CJDfMKWjwz0T+d/nvdFAXbQvpXzL85YjDNsJq0fZyadIvNMENYaIyBipRKZb5M/maltvOGBvkYVjp1lvqOZQ3K6mFICaj1/p2lWSxWqx43fvKaOTdaS+8tdHvUeE5epYQfbkWz60xtEILvpmKfefS866bQWPH1Z1OvgNGLYEMS+Ao7nARbZSbq1EamoKQU=
+  file:
+    - "${RELEASE_PKG_FILE}"
+    - "${RELEASE_PKG_FILE}.tar.gz"
+  on:
+    repo: eoko/Thiveo-Chrome-Extension
+    tags: true
+
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - g++-4.8
+
+notifications:
+  slack:
+    secure: XpwjOgLyfHikR0BxwzDFMmO/81sWaeqXgrEx38C3WGyzDG0rv69SfxQ1I6V48IA7yV457zxUjyZF3QduidQn9ctr1nUL/Wxs6sZrc6O7hxYrdsRzASfn9FIJXbA9ycY6t49MQONZCBqKFg8M6XyRYQ4v+clDvsMdOJjRv+VvWFzOzHK3nVgvY/da8m34L/YPqGvrmfxdFoIn28aHMhH89ZcjL71etleC0dj2tM3xoz5RIofZiD++yLAn6TReKY2E2aHAfgAHod6mStqXrIyZKVYQH6mPn7++mIMvSgfAIW2Cnmci+MHYn318Stu/PPJhJzNWz2lEuTDXqoFtj/8s4zSLQaRPCMCMPc/fG3m2Ug39pszsi3Lv1mz7FmvF87QVzueNtSOQytoCc/1SKdfBrvnQQrth9iMzeI9ZmwuPVhqMDQrnpC9OYpIYfvYl7lN0cUt0lVx2NALb782SEkLz6bXY5/64UmUX2/e0TzVpdBkbtsv0RZkpcNS3vyg/AS1nqDZNe/kI6GS954iH6KRXyp/DzsUCq0IcpMkZ0WXcBXKly5XFbYTdIp5bluz0IEDZmAKg1ykKje14sbI8VjjyEFenWocAdnM2TVbEjG396W2z1GZrXpmBKG4kOwdcuIzb5rmjI2ki4Hnvpg9EsydAh/nbomYaOKx0BkY59HPX1rM=

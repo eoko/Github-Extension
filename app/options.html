@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+    <!-- build:css styles/options-vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap-css/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css styles/main.css -->
+    <link href="styles/main.css" rel="stylesheet">
+    <!-- endbuild -->
+</head>
+<body>
+<div class="col-sm-12 loading">
+    <p>Loading...</p>
+</div>
+<div class="flash-message">
+    <p></p>
+</div>
+<div class="row status disconnected">
+    <div class="col-sm-12">
+        <p>Hello, <span id="name"></span></p>
+        <p>You extension is properly connected to you github account.</p>
+        <div class="btn-group pull-right" role="group">
+            <button id="reset" class="btn btn-primary">Reset my account</button>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <p>To be able to use this extension, you have to generate a github access key and fill the following input.</p>
+        <form>
+            <div class="form-group">
+                <label for="key">Github Key</label>
+                <input type="text" class="form-control" id="key" placeholder="Key">
+            </div>
+            <button id="save" class="btn btn-primary pull-right">Save</button>
+        </form>
+    </div>
+</div>
+
+<!-- build:js scripts/options-vendor.js -->
+<!-- bower:js -->
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="bower_components/bootstrap-css/js/bootstrap.min.js"></script>
+<script src="bower_components/octokat/dist/octokat.js"></script>
+<script src="bower_components/es6-promise/promise.js"></script>
+<script src="bower_components/lodash/lodash.js"></script>
+<!-- endbower -->
+<!-- endbuild -->
+
+<!-- build:js scripts/options.js -->
+<script src="scripts/events.js"></script>
+<script src="scripts/options.js"></script>
+<!-- endbuild -->
+
+</body>
+</html>

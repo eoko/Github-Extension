@@ -1,0 +1,49 @@
+$padding: 20px;
+$grey: #A1A1A1;
+
+body {
+  padding: $padding;
+}
+
+.loading {
+  position: fixed;
+  display: block;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  background-color: white;
+}
+
+.status {
+  &.connected {
+    .col-sm-12:first-child {
+      display: block;
+    }
+
+    .col-sm-12:last-child {
+      display: none;
+    }
+  }
+
+  &.disconnected {
+    .col-sm-12:first-child {
+      display: none;
+    }
+
+    .col-sm-12:last-child {
+      display: block;
+    }
+  }
+}
+
+ul.repos-list {
+  margin: 0;
+  padding: 0;
+
+  li {
+    display: block;
+    padding: 5px;
+    list-style: none;
+    border-bottom: 1px solid $grey;
+  }
+}
