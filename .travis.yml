@@ -39,7 +39,7 @@ deploy:
     - "${RELEASE_PKG_FILE}"
     - "${RELEASE_PKG_FILE}.tar.gz"
   on:
-    repo: eoko/Thiveo-Chrome-Extension
+    repo: eoko/Github-Extension
     tags: true
 
 addons:
