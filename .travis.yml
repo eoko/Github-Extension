@@ -16,7 +16,7 @@ before_script:
 before_deploy:
 - export RELEASE_PKG_FILE="delivery/${TRAVIS_BRANCH}.crx"
 - "./node_modules/gulp/bin/gulp.js build"
-- crx pack build -o ${RELEASE_PKG_FILE}
+- crx pack dist -o ${RELEASE_PKG_FILE}
 - tar -zcvf ${RELEASE_PKG_FILE}.tar.gz dist
 - echo "deploying ${RELEASE_PKG_FILE} to GitHub releases"
 branches:
