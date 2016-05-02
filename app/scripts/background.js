@@ -75,8 +75,7 @@ function App() {
       chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
         chrome.tabs.sendMessage(tabs[0].id, {name: name, content: url});
       });
-
-      chrome.browserAction.setBadgeText(obj.length);
+      chrome.browserAction.setBadgeText({text: obj.length});
     });
   }
 }
